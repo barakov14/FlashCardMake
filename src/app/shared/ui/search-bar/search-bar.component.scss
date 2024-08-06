@@ -1,0 +1,39 @@
+.search-bar {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc; // Цвет границы
+  border-radius: 20px; // Закругленные углы
+  overflow: hidden;
+  height: 36px;
+  max-width: 500px;
+  margin: 0 auto; // Центровка на странице
+  background-color: white; // Белый фон
+
+  &__input {
+    flex: 1; // Поле ввода занимает оставшееся пространство
+    border: none;
+    padding: 0 12px; // Внутренние отступы
+    font-size: 16px;
+    outline: none; // Убираем стандартное выделение
+  }
+
+  &__button {
+    background-color: #f8f8f8; // Цвет кнопки
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    mat-icon {
+      color: #606060; // Цвет иконки
+    }
+
+    &:hover {
+      background-color: #e8e8e8; // Цвет при наведении
+    }
+  }
+}
