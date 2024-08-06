@@ -1,0 +1,55 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.header {
+  flex: 0 0 auto;
+  z-index: 1000;
+  background-color: #fff;
+}
+
+.drawer-container {
+  display: flex;
+  height: 100%;
+}
+
+.drawer {
+  width: 80px; /* Width when partially open */
+  max-width: 250px; /* Max width when fully open */
+  transition: width 0.3s; /* Smooth transition */
+  z-index: 1; /* Ensure it's below the header but above the content */
+  overflow: hidden; /* Hide overflow */
+}
+
+.drawer.mat-drawer-opened {
+  width: 250px; /* Width when fully open */
+}
+
+.drawer .mat-drawer-content {
+  padding: 1rem; /* Add padding to the content inside the drawer */
+}
+
+.mat-drawer-content {
+  display: flex;
+  align-items: center;
+}
+
+.mat-drawer-content .icon {
+  display: block;
+  margin-right: 10px;
+}
+
+.mat-drawer-content .label {
+  display: none;
+}
+
+.drawer.mat-drawer-opened .mat-drawer-content .label {
+  display: inline;
+}
+
+.drawer-content {
+  flex: 1;
+  overflow: hidden; /* Prevent scrolling issues */
+}

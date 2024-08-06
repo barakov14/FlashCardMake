@@ -1,0 +1,72 @@
+.auth {
+  display: flex;
+  height: 100vh;
+
+  &__side {
+    flex: 1; // Используем flex для равномерного распределения пространства
+    height: 100vh;
+
+    &--left {
+      background-color: white; // Используем background-color для улучшенной совместимости
+      // Добавьте дополнительные стили для левой стороны здесь
+    }
+
+    &--right {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 0 2rem; // Добавляем отступы для контента
+    }
+  }
+
+  &__error {
+    margin-bottom: 1rem;
+    color: #f44336; // Добавляем цвет ошибки
+    font-size: 0.875rem; // Размер шрифта для ошибки
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem; // Добавлен размер шрифта для заголовка
+    width: 350px;
+
+    &__highlight {
+      display: block;
+      font-weight: bold;
+      color: #007bff; // Цвет выделения текста
+    }
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 350px; // Ограничение ширины формы
+
+    &__field {
+      margin-bottom: 1rem; // Отступ между полями ввода
+    }
+
+    &__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem; // Отступ между кнопками
+
+      button {
+        width: 100%; // Кнопки занимают всю ширину формы
+        height: 40px; // Высота кнопок для удобного клика
+      }
+    }
+
+    &__google-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem; // Отступ между иконкой и текстом
+      i {
+        font-size: 1.2rem; // Размер иконки
+      }
+    }
+  }
+}

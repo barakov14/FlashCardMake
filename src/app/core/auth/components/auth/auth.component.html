@@ -1,0 +1,66 @@
+@let isSignUpMode = $isSignUpMode();
+
+<div class="auth">
+  <div class="auth__side auth__side--left">
+    <!-- Здесь можно добавить контент или изображение для левой стороны -->
+  </div>
+
+  <div class="auth__side auth__side--right">
+    <mat-tab-group class="mat-tab" (selectedTabChange)="onSwitchMode()" animationDuration="0ms">
+      <mat-tab label="Войти"></mat-tab>
+      <mat-tab label="Регистрация"></mat-tab>
+    </mat-tab-group>
+
+    <h1 class="auth__title">
+      {{ isSignUpMode ? 'Зарегистрироваться' : 'Вход в учетную запись' }}
+      <span class="auth__title__highlight">FlashCardMake</span>
+    </h1>
+
+    @if($errors(); as errors) {
+      <div class="auth__error">
+        <mat-error>{{ errors }}</mat-error>
+      </div>
+    }
+
+    <form class="auth__form" [formGroup]="authForm" (ngSubmit)="onAuthUser()">
+      <mat-form-field class="auth__form__field" appearance="outline">
+        <mat-label>Адрес электронной почты</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field class="auth__form__field" appearance="outline">
+        <mat-label>Пароль</mat-label>
+        <input
+          matInput
+          [type]="$hide() ? 'password' : 'text'"
+          formControlName="password"
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          type="button"
+          (click)="togglePasswordVisibility($event)"
+          [attr.aria-label]="$hide() ? 'Show password' : 'Hide password'"
+          [attr.aria-pressed]="$hide()"
+        >
+          <mat-icon>{{ $hide() ? 'visibility_off' : 'visibility' }}</mat-icon>
+        </button>
+      </mat-form-field>
+
+      <div class="auth__form__actions">
+        <button type="submit" mat-flat-button>
+          {{ isSignUpMode ? 'Регистрация' : 'Войти' }}
+        </button>
+        <button
+          type="button"
+          mat-stroked-button
+          class="auth__form__google-button"
+          (click)="onSignInWithGoogle()"
+        >
+          <i class="ri-google-fill"></i>
+          Продолжить с Google
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
