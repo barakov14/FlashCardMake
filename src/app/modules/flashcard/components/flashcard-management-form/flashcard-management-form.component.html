@@ -1,0 +1,63 @@
+<form [formGroup]="flashCardForm">
+  <div class="form-header">
+    <h1>Создать новый модуль</h1>
+    <div class="form-actions">
+      <button mat-stroked-button class="btn" (click)="onSubmit()">Создать</button>
+      <button mat-flat-button>Создать и практиковать</button>
+    </div>
+  </div>
+  <div class="form-main">
+    <mat-form-field appearance="outline" class="form-field-header">
+      <mat-label>Введите название</mat-label>
+      <input matInput class="form-field__input" formControlName="name" />
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="form-field-header">
+      <mat-label>Введите описание</mat-label>
+      <input matInput class="form-field__input" formControlName="description" />
+    </mat-form-field>
+  </div>
+  <div formArrayName="cards" cdkDropList (cdkDropListDropped)="onDrop($event)">
+    @for(card of cards.controls; let i = $index; track i) {
+      <div [formGroupName]="i" class="wrapper-card" cdkDrag>
+        <mat-card appearance="outlined" class="form-cards">
+          <mat-card-header class="card-header">
+            <div class="number">{{ i + 1 }}</div>
+            <div class="spacer"></div>
+            <div class="actions">
+              <div class="drag" cdkDragHandle>
+                <mat-icon>drag_indicator</mat-icon>
+              </div>
+              <button mat-icon-button (click)="onRemoveCard(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </mat-card-header>
+          <mat-divider></mat-divider>
+          <mat-card-content class="card-content">
+            <mat-form-field appearance="outline" class="form-field form-field__first">
+              <input
+                matInput
+                class="form-field__input"
+                formControlName="term"
+                placeholder="Введите термин"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="form-field">
+              <input
+                matInput
+                class="form-field__input"
+                formControlName="definition"
+                placeholder="Введите определение"
+              />
+            </mat-form-field>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    }
+  </div>
+  <div class="add-card-btn">
+    <button mat-fab extended color="primary" type="button" (click)="onAddCard()">
+      <mat-icon>add</mat-icon> Добавить
+    </button>
+  </div>
+</form>

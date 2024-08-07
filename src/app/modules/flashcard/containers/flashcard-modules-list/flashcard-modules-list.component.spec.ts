@@ -8,9 +8,8 @@ describe('FlashcardModulesListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FlashcardModulesListComponent]
-    })
-    .compileComponents();
+      imports: [FlashcardModulesListComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(FlashcardModulesListComponent);
     component = fixture.componentInstance;

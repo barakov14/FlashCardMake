@@ -21,8 +21,9 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { ISignInRequest, ISignUpRequest } from '../../models/auth.model';
-import { AuthMode } from '../../models/auth.enum';
+import { AuthMode, ErrorAuth } from '../../models/auth.enum';
 import { MatTab, MatTabGroup } from '@angular/material/tabs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'fcm-auth',
@@ -46,10 +47,12 @@ import { MatTab, MatTabGroup } from '@angular/material/tabs';
 })
 export class AuthComponent {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
 
   $errors = signal<string | null>(null);
   $hide = signal(true);
   $isSignUpMode = signal<boolean>(false);
+  $isLoading = signal<boolean>(false);
 
   togglePasswordVisibility(event: MouseEvent) {
     this.$hide.set(!this.$hide());
@@ -61,11 +64,15 @@ export class AuthComponent {
       Validators.required,
       Validators.email,
     ]),
-    password: new FormControl('123456', [Validators.required]),
+    password: new FormControl('123456', [
+      Validators.required,
+      Validators.minLength(6),
+    ]),
   });
 
   onAuthUser() {
     if (this.authForm.valid) {
+      this.$isLoading.set(true);
       const formData = this.authForm.getRawValue();
       const authOperation = this.$isSignUpMode()
         ? this.authService.signUp(formData as ISignUpRequest)
@@ -73,27 +80,30 @@ export class AuthComponent {
 
       authOperation
         .then((response) => {
-          console.log(
-            this.$isSignUpMode()
-              ? 'Registration successful'
-              : 'Sign-in successful',
-            response,
-          );
+          this.$isLoading.set(false);
+          this.router.navigate(['/flashcard']);
         })
         .catch((error) => {
           this.$errors.set(error.message);
+          this.$isLoading.set(false);
         });
+    } else {
+      this.$errors.set(ErrorAuth.INVALID);
     }
   }
 
   onSignInWithGoogle() {
+    this.$isLoading.set(true);
     this.authService
       .signInWithGoogle()
       .then((response) => {
+        this.router.navigate(['/flashcard']);
         this.authForm.reset();
+        this.$isLoading.set(false);
       })
       .catch((error) => {
         this.$errors.set(error.message);
+        this.$isLoading.set(false);
       });
   }
 

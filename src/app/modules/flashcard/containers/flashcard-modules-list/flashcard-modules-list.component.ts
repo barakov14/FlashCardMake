@@ -6,8 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   imports: [],
   templateUrl: './flashcard-modules-list.component.html',
   styleUrl: './flashcard-modules-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlashcardModulesListComponent {
-
-}
+export class FlashcardModulesListComponent {}

@@ -11,10 +11,12 @@ import {
 import { GoogleAuthProvider } from 'firebase/auth';
 import { ISignInRequest, ISignUpRequest } from '../models/auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly auth = inject(Auth);
+  private readonly router = inject(Router);
 
   $user: Signal<User | null> = toSignal(authState(this.auth), {
     initialValue: null,
@@ -41,6 +43,8 @@ export class AuthService {
   }
 
   async signOut() {
-    return await signOut(this.auth);
+    return await signOut(this.auth).then(() => {
+      this.router.navigate(['/auth']);
+    });
   }
 }

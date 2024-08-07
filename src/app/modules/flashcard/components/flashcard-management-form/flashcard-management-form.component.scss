@@ -1,0 +1,82 @@
+.form-main {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 1rem;
+}
+.form-cards {
+  padding: 0 1rem;
+}
+
+.wrapper-card:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.form-field-header {
+  width: 400px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  .btn {
+    margin-right: 0.5rem;
+  }
+}
+
+.form-field__first {
+  margin-right: 1rem;
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+.card-content {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  .drag {
+    margin-top: 0.35rem;
+    cursor: move;
+  }
+}
+
+.add-card-btn {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 1.5rem 0;
+}
+
+.cdk-drag-preview {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 4px;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+  0 8px 10px 1px rgba(0, 0, 0, 0.14),
+  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

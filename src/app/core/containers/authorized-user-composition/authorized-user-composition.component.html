@@ -1,0 +1,14 @@
+<div class="wrapper">
+  <div class="header">
+    <fcm-header [drawer]="drawer"></fcm-header>
+  </div>
+  <mat-drawer-container class="drawer-container">
+    <mat-drawer #drawer mode="side" class="drawer" opened>
+      <fcm-sidenav></fcm-sidenav>
+    </mat-drawer>
+    <mat-drawer-content class="main-content">
+      <!-- <button mat-flat-button (click)="onLogout()">Logout</button> -->
+      <router-outlet></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>

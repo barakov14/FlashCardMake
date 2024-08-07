@@ -1,28 +1,11 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import {
-  MatDrawer,
-  MatDrawerContainer,
-  MatDrawerContent,
-  MatSidenavContainer,
-} from '@angular/material/sidenav';
-import { AuthComponent } from './core/auth/components/auth/auth.component';
-import { HeaderComponent } from './core/layout/header/header.component';
-import { SidenavComponent } from './core/layout/sidenav/sidenav.component';
+import { MatSidenavContainer } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    RouterOutlet,
-    MatDrawerContainer,
-    MatDrawer,
-    MatDrawerContent,
-    MatSidenavContainer,
-    AuthComponent,
-    HeaderComponent,
-    SidenavComponent,
-  ],
+  imports: [RouterOutlet, MatSidenavContainer],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
