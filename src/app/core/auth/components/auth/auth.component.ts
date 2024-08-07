@@ -78,15 +78,18 @@ export class AuthComponent {
         ? this.authService.signUp(formData as ISignUpRequest)
         : this.authService.signIn(formData as ISignInRequest);
 
-      authOperation
-        .then((response) => {
-          this.$isLoading.set(false);
+      authOperation.subscribe({
+        next: () => {
+          this.authForm.reset();
           this.router.navigate(['/flashcard']);
-        })
-        .catch((error) => {
+        },
+        error: (error) => {
           this.$errors.set(error.message);
+        },
+        complete: () => {
           this.$isLoading.set(false);
-        });
+        },
+      });
     } else {
       this.$errors.set(ErrorAuth.INVALID);
     }
@@ -94,17 +97,18 @@ export class AuthComponent {
 
   onSignInWithGoogle() {
     this.$isLoading.set(true);
-    this.authService
-      .signInWithGoogle()
-      .then((response) => {
-        this.router.navigate(['/flashcard']);
+    this.authService.signInWithGoogle().subscribe({
+      next: () => {
         this.authForm.reset();
-        this.$isLoading.set(false);
-      })
-      .catch((error) => {
+        this.router.navigate(['/flashcard']);
+      },
+      error: (error) => {
         this.$errors.set(error.message);
+      },
+      complete: () => {
         this.$isLoading.set(false);
-      });
+      },
+    });
   }
 
   onSwitchMode() {

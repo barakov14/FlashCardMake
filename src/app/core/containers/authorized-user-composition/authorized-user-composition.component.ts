@@ -30,6 +30,6 @@ export class AuthorizedUserCompositionComponent {
   private readonly authService = inject(AuthService);
 
   onLogout() {
-    this.authService.signOut().then();
+    this.authService.signOut().subscribe();
   }
 }

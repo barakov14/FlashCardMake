@@ -12,6 +12,7 @@ import { GoogleAuthProvider } from 'firebase/auth';
 import { ISignInRequest, ISignUpRequest } from '../models/auth.model';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -22,29 +23,27 @@ export class AuthService {
     initialValue: null,
   });
 
-  async signIn(data: ISignInRequest) {
-    return await signInWithEmailAndPassword(
-      this.auth,
-      data.email,
-      data.password,
+  signIn(data: ISignInRequest) {
+    return from(
+      signInWithEmailAndPassword(this.auth, data.email, data.password),
     );
   }
 
-  async signUp(data: ISignUpRequest) {
-    return await createUserWithEmailAndPassword(
-      this.auth,
-      data.email,
-      data.password,
+  signUp(data: ISignUpRequest) {
+    return from(
+      createUserWithEmailAndPassword(this.auth, data.email, data.password),
     );
   }
 
-  async signInWithGoogle() {
-    return await signInWithPopup(this.auth, new GoogleAuthProvider());
+  signInWithGoogle() {
+    return from(signInWithPopup(this.auth, new GoogleAuthProvider()));
   }
 
-  async signOut() {
-    return await signOut(this.auth).then(() => {
-      this.router.navigate(['/auth']);
-    });
+  signOut() {
+    return from(
+      signOut(this.auth).then(() => {
+        this.router.navigate(['/auth']);
+      }),
+    );
   }
 }
