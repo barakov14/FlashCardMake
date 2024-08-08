@@ -4,6 +4,7 @@ import {
   Component,
   DestroyRef,
   inject,
+  output,
 } from '@angular/core';
 import {
   FormArray,
@@ -30,9 +31,10 @@ import {
   CdkDragHandle,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { FlashcardRemoveDialogComponent } from './flashcard-remove-dialog/flashcard-remove-dialog.component';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { IAddFlashCardModule } from '../../models/flashcard.model';
 
 @Component({
   selector: 'fcm-flashcard-management-form',
@@ -63,6 +65,8 @@ export class FlashcardManagementFormComponent {
   private readonly dialog = inject(MatDialog);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
+
+  addFlashCardModule = output<IAddFlashCardModule>();
 
   flashCardForm = new FormBuilder().group({
     name: new FormControl('', [Validators.required]),
@@ -106,7 +110,11 @@ export class FlashcardManagementFormComponent {
   }
 
   onSubmit() {
-    console.log(this.flashCardForm.getRawValue());
+    if (this.flashCardForm.valid) {
+      this.addFlashCardModule.emit(
+        this.flashCardForm.getRawValue() as IAddFlashCardModule,
+      );
+    }
   }
 
   onDrop(event: CdkDragDrop<FormGroup[]>) {
